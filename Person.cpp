@@ -21,7 +21,7 @@ void Person::fetchFirstLastName()
 
     if("FAILURE" == matchingLine.front())
     {
-        std::cout << "SPRINT NUMBER DOES NOT EXIST" << std::endl;
+        std::cout << "PERSON DOES NOT EXIST" << std::endl;
     }
     else
     {
