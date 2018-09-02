@@ -1,5 +1,4 @@
-//To compileg++-8 -std=c++17 -I ../BOOSTEXPERIMENTS/boost_1_67_0/ practice.cpp Person.cpp Sprint.cpp Utilities/File_Accessor.cpp -pthread -lboost_unit_test_framework -o a.out -lboost_thread -lpthread -lboost_chrono -lboost_system -lboost_date_time -lstdc++fs -L ../BOOSTEXPERIMENTS/boost_1_67_0/stage/lib/
-#include <iostream>
+// g++-8 -std=c++17 -isystem ../BOOSTEXPERIMENTS/boost_1_67_0/ *.cpp Utilities/*.cpp -pthread -lboost_unit_test_framework -o a.out -lboost_thread -lpthread -lboost_chrono -lboost_system -lboost_date_time -lstdc++fs -L ../BOOSTEXPERIMENTS/boost_1_67_0/stage/lib/#include <iostream>
 #include <string>
 #include <regex>
 #include <chrono>
