@@ -79,25 +79,6 @@ std::array<std::tm, 5> Date_Operations::returnAllWeekdaysDatesInTheSameWeek(std:
 
 int Date_Operations::returnPositionInWeek(std::tm date)
 {
-    // std::tm base_date = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ""};
-    // base_date = date;
-    // base_date.tm_year -= 1900;
-    // std::cout <<"base_date " << base_date.tm_year << " " << base_date.tm_mon << " " << base_date.tm_mday << std::endl;
-
-    // // date.tm_year = date.tm_year-1900;
-    // // date.tm_mon = date.tm_mon-1;
-    // // date.tm_isdst = -1;
-    // // std::mktime(&date);
-    // // char timebuf[64];
-    // // strftime(timebuf, sizeof timebuf, "%V", &date);
-    // // int position_in_week = std::stoi(timebuf);
-    // // return position_in_week;
-
-    // // date.tm_mon = (date.tm_mon + 9) % 12;
-    // // date.tm_year -= date.tm_mon / 10;
-    // // int pos_week = 365*date.tm_year + date.tm_year/4 - date.tm_year/100 + date.tm_year/400 + (date.tm_mon*306 + 5)/10 + (date.tm_mday - 1);
-
-
     char timebuf2[64];
     date.tm_year = date.tm_year-1900;
     date.tm_mon = date.tm_mon-1;
@@ -110,27 +91,6 @@ int Date_Operations::returnPositionInWeek(std::tm date)
     std::cout <<"date "<< timebuf2 << std::endl;
 
     return std::stoi(timebuf2);
-
-    // // return pos_week;
-
-    // // std::tm time_in = { 0, 0, 0, // second, minute, hour
-    // //   9, 10, 2016 - 1900 }; // 1-based day, 0-based month, year since 1900
-
-    // std::time_t time_temp = std::mktime(&base_date);
-
-    // //Note: Return value of localtime is not threadsafe, because it might be
-    // // (and will be) reused in subsequent calls to std::localtime!
-    // //const std::tm * time_out = std::localtime(&time_in);
-    // const std::tm time_out = *std::localtime(&time_temp);
-    // //Sunday == 0, Monday == 1, and so on ...
-    // std::cout << "Today is this day of the week: " << time_out.tm_wday << "\n";
-    // return time_out.tm_wday;
-
-    // constexpr int DAYS_PER_WEEK = 7 ;
-
-    // const int wday = date.tm_wday ;
-    // const int delta = wday ? wday-1 : DAYS_PER_WEEK-1 ;
-    // return ( date.tm_yday + DAYS_PER_WEEK - delta ) / DAYS_PER_WEEK ;
 }
 
 
