@@ -131,7 +131,8 @@ int main ()
   wew.tm_mon = std::stoi(tokens.at(1));
   wew.tm_mday = std::stoi(std::regex_replace(tokens.at(2), std::regex("^ +\r\n|\r|\n+"), "$1"));
   wew.tm_isdst = -1;
-  std::cout << "wew1 "<< wew.tm_year << " " << wew.tm_mon << " " << wew.tm_mday << std::endl;
+  wew.tm_wday = 1;
+  std::cout << "wew "<< wew.tm_year << " " << wew.tm_mon << " " << wew.tm_mday << std::endl;
   // std::mktime(&wew);
   // strftime(timebuf, sizeof timebuf, "%V", &wew);
   // std::cout << "wew " << wew.tm_wday << std::endl;
@@ -140,8 +141,8 @@ int main ()
   std::tm wew2{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ""};
   //2018,08,19
   wew2.tm_year = 2018;
-  wew2.tm_mon = 8;
-  wew2.tm_mday = 20;
+  wew2.tm_mon = 9;
+  wew2.tm_mday = 5;
   wew2.tm_isdst = -1;
   std::cout << "wew2 "<< wew2.tm_year << " " << wew2.tm_mon << " " << wew2.tm_mday << std::endl;
   // std::mktime(&wew2);
@@ -150,6 +151,55 @@ int main ()
   // std::cout << "wew2 " << timebuf2 << std::endl;
 
   Date_Operations::compareIfTwoDatesAreOnSameWeek(wew, wew2);
+
+  std::tm tomorrow = Date_Operations::returnNextDay(wew);
+  std::cout << "tomorrow "<< tomorrow.tm_year << " " << tomorrow.tm_mon << " " << tomorrow.tm_mday << std::endl;
+
+  std::tm yesterday = Date_Operations::returnPreviousDay(wew);
+  std::cout << "yesterday "<< yesterday.tm_year << " " << yesterday.tm_mon << " " << yesterday.tm_mday << std::endl;
+
+
+  std::tm date_leap_day{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ""};
+  //2018,08,19
+  date_leap_day.tm_year = 2020;
+  date_leap_day.tm_mon = 1;
+  date_leap_day.tm_mday = 28;
+  date_leap_day.tm_isdst = -1;
+  std::cout << "date_leap_day "<< date_leap_day.tm_year << " " << date_leap_day.tm_mon << " " << date_leap_day.tm_mday << std::endl;
+  std::tm next_day_in_leap_year = Date_Operations::returnNextDay(date_leap_day);
+  std::cout << "next_day_in_leap_year "<< next_day_in_leap_year.tm_year << " " << next_day_in_leap_year.tm_mon << " " << next_day_in_leap_year.tm_mday << std::endl;
+  std::tm next_next_day_in_leap_year = Date_Operations::returnNextDay(next_day_in_leap_year);
+  std::cout << "next_next_day_in_leap_year "<< next_next_day_in_leap_year.tm_year << " " << next_next_day_in_leap_year.tm_mon << " " << next_next_day_in_leap_year.tm_mday << std::endl;
+
+
+  std::tm day_after_leap_day{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ""};
+
+  day_after_leap_day.tm_year = 2020;
+  day_after_leap_day.tm_mon = 2;
+  day_after_leap_day.tm_mday = 1;
+  day_after_leap_day.tm_isdst = -1;
+  std::cout << "day_after_leap_day "<< day_after_leap_day.tm_year << " " << day_after_leap_day.tm_mon << " " << day_after_leap_day.tm_mday << std::endl;
+  std::tm previous_day_after_leap_day = Date_Operations::returnPreviousDay(day_after_leap_day);
+  std::cout << "previous_day_after_leap_day "<< previous_day_after_leap_day.tm_year << " " << previous_day_after_leap_day.tm_mon << " " << previous_day_after_leap_day.tm_mday << std::endl;
+
+  std::tm day_after_non_leap_day{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ""};
+
+  day_after_non_leap_day.tm_year = 2019;
+  day_after_non_leap_day.tm_mon = 2;
+  day_after_non_leap_day.tm_mday = 1;
+  day_after_non_leap_day.tm_isdst = -1;
+  std::cout << "day_after_non_leap_day "<< day_after_non_leap_day.tm_year << " " << day_after_non_leap_day.tm_mon << " " << day_after_non_leap_day.tm_mday << std::endl;
+  std::tm previous_day_after_non_leap_day = Date_Operations::returnPreviousDay(day_after_non_leap_day);
+  std::cout << "previous_day_after_non_leap_day "<< previous_day_after_non_leap_day.tm_year << " " << previous_day_after_non_leap_day.tm_mon << " " << previous_day_after_non_leap_day.tm_mday << std::endl;
+
+  std::array<std::tm,5> weekdays = Date_Operations::returnAllWeekdaysDatesInTheSameWeek(date_leap_day);
+  for (int x = 0; x<5; ++x)
+  {
+      std::cout << "Element " << x << " " << weekdays[x].tm_year << " " <<  weekdays[x].tm_mon << " " <<  weekdays[x].tm_mday << std::endl;
+  }
+
+  return 0;
+}
 
 
   // {
@@ -275,5 +325,3 @@ int main ()
 
   std::cout << std::endl;
   */
-  return 0;
-}
