@@ -15,6 +15,8 @@ class Date_Operations
         static bool isLeapYear(std::tm date);
         static bool isValidYear(std::tm date);
         static int returnPositionInWeek(std::tm date);
+        static bool isDateInRange(std::tm check_date, std::tm start_date, std::tm end_date);
+
     private:
 
 };

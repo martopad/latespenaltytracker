@@ -41,6 +41,32 @@ std::vector<std::string> File_Accessor::getFirstLineMatched(std::string filePath
     return std::vector<std::string> {"FAILURE"};
 }
 
+std::vector<std::string> File_Accessor::returnAllLinesInAFile(std::string filePathRelativeToPWD)
+{
+    std::ifstream reader(std::filesystem::current_path().string() +"/"+ filePathRelativeToPWD);
+    if(!reader)
+    {
+        std::cout << "Unable to access: " << std::filesystem::current_path().string() << " " << filePathRelativeToPWD << std::endl ;
+        return std::vector<std::string> {"FAILURE"};
+    }
+
+    std::string line;
+    std::vector<std::string> all_lines_in_file;
+    while(getline(reader, line))
+    {
+        all_lines_in_file.push_back(line);
+    }
+
+    if(all_lines_in_file.empty())
+    {
+        reader.close();
+        return std::vector<std::string> {"FAILURE"};
+    }
+
+    reader.close();
+    return all_lines_in_file;
+}
+
 int File_Accessor::countNumberOfLines(std::string filePathRelativeToPWD)
 {
     std::ifstream reader(std::filesystem::current_path().string() +"/"+ filePathRelativeToPWD);

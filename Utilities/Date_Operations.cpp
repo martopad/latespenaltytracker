@@ -165,6 +165,24 @@ std::tm Date_Operations::returnPreviousDay(std::tm date)
 
 }
 
+bool Date_Operations::isDateInRange(std::tm check_date, std::tm start_date, std::tm end_date)
+{
+    int entry = (check_date.tm_year * 10000) + (check_date.tm_mon * 100) + check_date.tm_mday;
+    int start = (start_date.tm_year * 10000) + (start_date.tm_mon * 100) + start_date.tm_mday;
+    int end = (end_date.tm_year * 10000) + (end_date.tm_mon * 100) + end_date.tm_mday;
+
+    if (entry >= start && entry <= end)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+
+
 
 bool Date_Operations::isValidDaysInMonth(std::tm date)
 {

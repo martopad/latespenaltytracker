@@ -26,7 +26,7 @@ std::string return_current_time_and_date()
     return ss.str();
 }
 
-std::string returnFirstMatch (std::string strToSearch, std::regex pattern)
+std::string returnFirstMatch(std::string strToSearch, std::regex pattern)
 {
     auto words_begin = std::sregex_iterator(strToSearch.begin(), strToSearch.end(), pattern);
     auto words_end = std::sregex_iterator();
@@ -37,6 +37,7 @@ std::string returnFirstMatch (std::string strToSearch, std::regex pattern)
     std::string match_str = match.str();
     return match_str;
 }
+
 std::vector<std::string> split(const std::string& s, char delimiter)
 {
   std::vector<std::string> tokens;
@@ -48,8 +49,6 @@ std::vector<std::string> split(const std::string& s, char delimiter)
   }
   return tokens;
 }
-
-
 
 void Tests::CompareIfTwoDatesAreOnSameWeek()
 {
