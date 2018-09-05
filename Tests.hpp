@@ -9,5 +9,7 @@ class Tests
         void ReturnPreviousDayAfterLeapDay();
         void ReturnPreviousDayNonLeapDay();
         void ReturnAllWeekdaysInTheSameWeek();
+        void DateGivenExistInSprintList();
+        void DateGivenDoestExistInSprintList();
 
 };

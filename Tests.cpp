@@ -155,3 +155,33 @@ void Tests::ReturnAllWeekdaysInTheSameWeek()
         std::cout << "Element " << x << " " << weekdays[x].tm_year << " " <<  weekdays[x].tm_mon << " " <<  weekdays[x].tm_mday << std::endl;
     }
 }
+
+void Tests::DateGivenExistInSprintList()
+{
+    std::cout << "Testing DateGivenExistInSprintList: ";
+    Sprint sprint("2018,05,17");
+
+    if("1806" == sprint.sprint_number && "2018,05,16" == sprint.start_date && "2018,06,12" == sprint.end_date)
+    {
+        std::cout << "Test Passed" << std::endl;
+    }
+    else
+    {
+        std::cout << "Test Failed" << std::endl;
+    }
+}
+
+void Tests::DateGivenDoestExistInSprintList()
+{
+    std::cout << "Testing DateGivenDoestExistInSprintList: ";
+    Sprint sprint("2018,05,15");
+
+    if(sprint.sprint_number.empty() && sprint.start_date.empty() && sprint.end_date.empty())
+    {
+        std::cout << "Test Passed" << std::endl;
+    }
+    else
+    {
+        std::cout << "Test Failed" << std::endl;
+    }
+}

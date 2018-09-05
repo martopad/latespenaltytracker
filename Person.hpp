@@ -8,7 +8,7 @@ class Person
         void displayMyLates(int sprintnumber);
         void displayMyPaidLates(int sprintnumber);
         void displayMyUnpaidLates(int sprintnumber);
-    private:
+    //private:
         std::string full_Name_Abrv = std::string{};
         std::string first_Name = std::string{};
         std::string last_Name = std::string{};

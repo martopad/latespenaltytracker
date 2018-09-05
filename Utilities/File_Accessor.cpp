@@ -116,3 +116,18 @@ int File_Accessor::countNumberOfLinesThatStartWith(std::string filePathRelativeT
     reader.close();
     return line_count;
 }
+
+void File_Accessor::appendToAFile(std::string filePathRelativeToPWD, std::string lineToAppend)
+{
+    std::ofstream writer;
+    //std::ofstream writer(std::filesystem::current_path().string() +"/"+ filePathRelativeToPWD);
+    writer.open( std::filesystem::current_path().string() +"/"+ filePathRelativeToPWD, std::ios::out | std::ios::app );
+    if(!writer)
+    {
+        std::cout <<"Unable to access: " << std::filesystem::current_path().string() << " " << filePathRelativeToPWD << std::endl ;
+    }
+
+
+    writer << "\n" <<lineToAppend;
+    writer.close();
+}
