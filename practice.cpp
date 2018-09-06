@@ -22,31 +22,32 @@
 int main()
 {
   //UNPAID,2018,08,17
-  std::string date = "2018,08,17";
-  std::string lates = "MY";
+  // std::string date = "2018,08,17";
+  // std::string lates = "MY";
 
-  std::cout << "The Inputted Date: " << date << std::endl;
-  std::cout << "Inputted Lates: " << lates << std::endl;
-  // std::cout << "Greetings, welcome to martin's lates tracker." << std::endl;
-  // std::cout << "Please enter the date that you wish to record the lates to: \"YYYY,MM,DD\"" << std::endl;
-  // std::cin >> date;
-  // std::cout << "Please enter the lates for this date: \"AB,CD,EF,GH\"" << std::endl;
-  // std::cin >> lates;
+  // std::cout << "The Inputted Date: " << date << std::endl;
+  // std::cout << "Inputted Lates: " << lates << std::endl;
+  // // std::cout << "Greetings, welcome to martin's lates tracker." << std::endl;
+  // // std::cout << "Please enter the date that you wish to record the lates to: \"YYYY,MM,DD\"" << std::endl;
+  // // std::cin >> date;
+  // // std::cout << "Please enter the lates for this date: \"AB,CD,EF,GH\"" << std::endl;
+  // // std::cin >> lates;
 
 
-  Sprint sprint(date);
-  if(!sprint.sprint_number.empty())
-  {
-    std::cout <<"Sprint detected, sprint number: "<< sprint.sprint_number << std::endl;
-  }
-  std::vector<std::string> lates_splitted = Regex_Operations::splitGivenString(lates,',');
-  std::cout << "The lates are: " << std::endl;
-  for(auto element: lates_splitted)
-  {
-    Person latePerson(element);
-    std::cout << latePerson.full_Name_Abrv << "-" << latePerson.last_Name << "," << latePerson.first_Name << std::endl;
-    Penalty::giveLatePenalty(latePerson, sprint, date);
-  }
+  // Sprint sprint(date);
+  // if(!sprint.sprint_number.empty())
+  // {
+  //   std::cout <<"Sprint detected, sprint number: "<< sprint.sprint_number << std::endl;
+  // }
+  // std::vector<std::string> lates_splitted = Regex_Operations::splitGivenString(lates,',');
+  // std::cout << "The lates are: " << std::endl;
+  // for(auto element: lates_splitted)
+  // {
+  //   Person latePerson(element);
+  //   std::cout << latePerson.full_Name_Abrv << "-" << latePerson.last_Name << "," << latePerson.first_Name << std::endl;
+  //   Penalty::giveLatePenalty(latePerson, sprint, date);
+  // }
+
   //std::cout << std::endl;
 
   // Person latePerson("MY");
@@ -61,9 +62,14 @@ int main()
 
 
 
-  //Tests tester;
-  //tester.CompareIfTwoDatesAreOnSameWeek();
-  //tester.ReturnNextAndPreviousDay();
+  Tests tester;
+  // tester.CompareIfTwoDatesAreOnSameWeek();
+  // tester.CompareIfTwoDatesOnDifferentMonthsAreOnSameWeek();
+  // tester.CompareIfTwoDatesOnDifferentMonthsLeapYearAreOnSameWeek();
+  // tester.CompareIfTwoDatesOnDifferentYearsAreOnSameWeek();
+  // tester.CompareIfTwoDatesAreNotOnTheSameWeek();
+
+  tester.ReturnNextAndPreviousDay();
   //tester.ReturnNextDayLeapDay();
   //tester.ReturnPreviousDayAfterLeapDay();
   //tester.ReturnPreviousDayNonLeapDay();
