@@ -2,28 +2,42 @@
 #include <iostream>
 #include <string>
 
-// std::tm Date_Operations::formatDate(std::tm date)
-// {
-//     std::tm formatted_date
-//         {
-//             0, 0, 0,
-//             date.tm_mday,
-//             date.tm_mon - 1,
-//             date.tm_year - 1900,
-//             0, 0, -1, 0, ""
-//         };
-//     return formatted_date;
-// }
+std::tm Date_Operations::formatDate(std::tm date)
+{
+    std::tm formatted_date
+        {
+            0, 0, 0,
+            date.tm_mday,
+            date.tm_mon - 1,
+            date.tm_year - 1900,
+            0, 0, -1, 0, ""
+        };
+    return formatted_date;
+}
+
+std::tm Date_Operations::revertFormatDate(std::tm date)
+{
+    std::tm formatted_date
+        {
+            0, 0, 0,
+            date.tm_mday,
+            date.tm_mon + 1,
+            date.tm_year + 1900,
+            0, 0, -1, 0, ""
+        };
+    return formatted_date;
+}
 
 
 
 bool Date_Operations::compareIfTwoDatesAreOnSameWeek(std::tm date1, std::tm date2)
 {
     char timebuf[64];
-    date1.tm_year = date1.tm_year-1900;
-    date1.tm_mon = date1.tm_mon-1;
+    date1 = formatDate(date1);
+    //date1.tm_year = date1.tm_year-1900;
+    //date1.tm_mon = date1.tm_mon-1;
     //date1.tm_mday = std::stoi(std::regex_replace(tokens.at(2), std::regex("^ +\r\n|\r|\n+"), "$1"));
-    date1.tm_isdst = -1;
+    //date1.tm_isdst = -1;
     //std::cout << date1.tm_year << " " << date1.tm_mon << " " << date1.tm_mday << std::endl;
     std::mktime(&date1);
     strftime(timebuf, sizeof timebuf, "%V", &date1);
@@ -31,10 +45,11 @@ bool Date_Operations::compareIfTwoDatesAreOnSameWeek(std::tm date1, std::tm date
     //std::cout <<"date1 Week Number: "<< timebuf << std::endl;
 
     char timebuf2[64];
-    date2.tm_year = date2.tm_year-1900;
-    date2.tm_mon = date2.tm_mon-1;
+    date2 = formatDate(date2);
+    //date2.tm_year = date2.tm_year-1900;
+    //date2.tm_mon = date2.tm_mon-1;
     //date1.tm_mday = std::stoi(std::regex_replace(tokens.at(2), std::regex("^ +\r\n|\r|\n+"), "$1"));
-    date2.tm_isdst = -1;
+    //date2.tm_isdst = -1;
     //std::cout << date2.tm_year << " " << date2.tm_mon << " " << date2.tm_mday << std::endl;
     std::mktime(&date2);
     strftime(timebuf2, sizeof timebuf2, "%V", &date2);
@@ -60,7 +75,8 @@ bool Date_Operations::compareIfTwoDatesAreOnSameWeek(std::tm date1, std::tm date
 
 std::array<std::tm, 5> Date_Operations::returnAllWeekdaysDatesInTheSameWeek(std::tm date)
 {
-    std::cout << "received date: "<< date.tm_year << " " << date.tm_mon << " " << date.tm_mday << std::endl;
+    date = formatDate(date);
+    //std::cout << "received date: "<< date.tm_year << " " << date.tm_mon << " " << date.tm_mday << std::endl;
     std::tm base_date = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ""};
     base_date.tm_year = date.tm_year;
     base_date.tm_mon = date.tm_mon;
@@ -70,29 +86,29 @@ std::array<std::tm, 5> Date_Operations::returnAllWeekdaysDatesInTheSameWeek(std:
     std::tm tomorrow_date = base_date;
 
     int position_in_week = Date_Operations::returnPositionInWeek(date);
-    std::cout << "position_in_week " << position_in_week << std::endl;
-    weekdays[position_in_week-1] = base_date;
+    //std::cout << "position_in_week " << position_in_week << std::endl;
+    weekdays[position_in_week-1] = revertFormatDate(base_date);
 
     if(0 == position_in_week && 6 == position_in_week)
     {
         //no lates supposedly during saturdays, and sundays.
     }
     int days_back_to_monday = position_in_week - 1;
-    std::cout << "days_back_to_monday " << days_back_to_monday << std::endl;
+    //std::cout << "days_back_to_monday " << days_back_to_monday << std::endl;
     for (int x = days_back_to_monday; x > 0; --x)
     {
-        std::cout << "x " << x << std::endl;
+       // std::cout << "x " << x << std::endl;
         yesterday_date = Date_Operations::returnPreviousDay(yesterday_date);
-        weekdays[x-1] = yesterday_date;
+        weekdays[x-1] = revertFormatDate(yesterday_date);
     }
 
     int days_to_friday = 5 - position_in_week;
-    std::cout << "days_to_friday " << days_to_friday << std::endl;
+    //std::cout << "days_to_friday " << days_to_friday << std::endl;
     for (int x = position_in_week; x < 5; ++x)
     {
-        std::cout << "x " << x << std::endl;
+        //std::cout << "x " << x << std::endl;
         tomorrow_date = Date_Operations::returnNextDay(tomorrow_date);
-        weekdays[x] = tomorrow_date;
+        weekdays[x] = revertFormatDate(tomorrow_date);
     }
     return weekdays;
 }
@@ -100,15 +116,15 @@ std::array<std::tm, 5> Date_Operations::returnAllWeekdaysDatesInTheSameWeek(std:
 int Date_Operations::returnPositionInWeek(std::tm date)
 {
     char timebuf2[64];
-    date.tm_year = date.tm_year-1900;
-    date.tm_mon = date.tm_mon-1;
+    //date.tm_year = date.tm_year-1900;
+    //date.tm_mon = date.tm_mon-1;
     //date1.tm_mday = std::stoi(std::regex_replace(tokens.at(2), std::regex("^ +\r\n|\r|\n+"), "$1"));
     date.tm_isdst = -1;
-    std::cout << date.tm_year << " " << date.tm_mon << " " << date.tm_mday << std::endl;
+    //std::cout << date.tm_year << " " << date.tm_mon << " " << date.tm_mday << std::endl;
     std::mktime(&date);
     strftime(timebuf2, sizeof timebuf2, "%u", &date);
-    std::cout << "date " << date.tm_wday << std::endl;
-    std::cout <<"date "<< timebuf2 << std::endl;
+    //std::cout << "date " << date.tm_wday << std::endl;
+    //std::cout <<"date "<< timebuf2 << std::endl;
 
     return std::stoi(timebuf2);
 }
@@ -116,6 +132,7 @@ int Date_Operations::returnPositionInWeek(std::tm date)
 
 std::tm Date_Operations::returnNextDay(std::tm date)
 {
+    date = formatDate(date);
     std::tm next_day = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ""};
     const static std::array<int,12> days_in_month = {31,28,31,30,31,30,31,31,30,31,30,31};
 
@@ -124,33 +141,32 @@ std::tm Date_Operations::returnNextDay(std::tm date)
         next_day.tm_year = date.tm_year;
         next_day.tm_mon = date.tm_mon;
         next_day.tm_mday = date.tm_mday + 1;
-        return next_day;
     }
     else if(11 == date.tm_mon && date.tm_mday + 1 > days_in_month[date.tm_mon])
     {
         next_day.tm_year = date.tm_year + 1;
         next_day.tm_mon = 0;
         next_day.tm_mday = 1;
-        return next_day;
     }
     else if(date.tm_mday + 1 > days_in_month[date.tm_mon])
     {
         next_day.tm_year = date.tm_year;
         next_day.tm_mon = date.tm_mon + 1;
         next_day.tm_mday = 1;
-        return next_day;
     }
     else
     {
         next_day.tm_year = date.tm_year;
         next_day.tm_mon = date.tm_mon;
         next_day.tm_mday = date.tm_mday + 1;
-        return next_day;
     }
+
+    return revertFormatDate(next_day);
 }
 
 std::tm Date_Operations::returnPreviousDay(std::tm date)
 {
+    date = formatDate(date);
     std::tm previous_day = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ""};
     const static std::array<int,12> days_in_month = {31,28,31,30,31,30,31,31,30,31,30,31};
 
@@ -159,30 +175,27 @@ std::tm Date_Operations::returnPreviousDay(std::tm date)
         previous_day.tm_year = date.tm_year;
         previous_day.tm_mon = 1;
         previous_day.tm_mday = 29;
-        return previous_day;
     }
     else if(1 == date.tm_mon && 0 == date.tm_mday)
     {
         previous_day.tm_year = date.tm_year - 1;
         previous_day.tm_mon = 11;
         previous_day.tm_mday = 31;
-        return previous_day;
     }
     else if(1 == date.tm_mday)
     {
         previous_day.tm_year = date.tm_year;
         previous_day.tm_mon = date.tm_mon - 1;
         previous_day.tm_mday = days_in_month[previous_day.tm_mon];
-        return previous_day;
     }
     else
     {
         previous_day.tm_year = date.tm_year;
         previous_day.tm_mon = date.tm_mon;
         previous_day.tm_mday = date.tm_mday - 1;
-        return previous_day;
     }
 
+    return revertFormatDate(previous_day);
 }
 
 bool Date_Operations::isDateInRange(std::tm check_date, std::tm start_date, std::tm end_date)

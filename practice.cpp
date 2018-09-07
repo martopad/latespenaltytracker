@@ -63,19 +63,19 @@ int main()
 
 
   Tests tester;
-  // tester.CompareIfTwoDatesAreOnSameWeek();
-  // tester.CompareIfTwoDatesOnDifferentMonthsAreOnSameWeek();
-  // tester.CompareIfTwoDatesOnDifferentMonthsLeapYearAreOnSameWeek();
-  // tester.CompareIfTwoDatesOnDifferentYearsAreOnSameWeek();
-  // tester.CompareIfTwoDatesAreNotOnTheSameWeek();
+  tester.CompareIfTwoDatesAreOnSameWeek();
+  tester.CompareIfTwoDatesOnDifferentMonthsAreOnSameWeek();
+  tester.CompareIfTwoDatesOnDifferentMonthsLeapYearAreOnSameWeek();
+  tester.CompareIfTwoDatesOnDifferentYearsAreOnSameWeek();
+  tester.CompareIfTwoDatesAreNotOnTheSameWeek();
 
   tester.ReturnNextAndPreviousDay();
-  //tester.ReturnNextDayLeapDay();
-  //tester.ReturnPreviousDayAfterLeapDay();
-  //tester.ReturnPreviousDayNonLeapDay();
-  //tester.ReturnAllWeekdaysInTheSameWeek();
-  //tester.DateGivenExistInSprintList();
-  //tester.DateGivenDoestExistInSprintList();
+  tester.ReturnNextDayLeapDay();
+  tester.ReturnPreviousDayAfterLeapDay();
+  tester.ReturnPreviousDayNonLeapDay();
+  tester.ReturnAllWeekdaysInTheSameWeek();
+  tester.DateGivenExistInSprintList();
+  tester.DateGivenDoestExistInSprintList();
 
 
   return 0;

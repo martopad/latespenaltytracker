@@ -6,6 +6,8 @@
 class Date_Operations
 {
     public:
+        static std::tm formatDate(std::tm date);
+        static std::tm revertFormatDate(std::tm date);
         static bool compareIfTwoDatesAreOnSameWeek(std::tm date1, std::tm date2);
         static std::array<std::tm, 5> returnAllWeekdaysDatesInTheSameWeek(std::tm date);
         static int determineTotalDaysOfMonth(std::tm date);

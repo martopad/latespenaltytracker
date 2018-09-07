@@ -137,25 +137,15 @@ std::tm makeDate(int year, Months month, int mday)
     return date;
 }
 
+bool operator==(const std::tm& lhs, const std::tm& rhs)
+{
+    return (lhs.tm_mday == rhs.tm_mday && lhs.tm_mon == rhs.tm_mon && lhs.tm_year == rhs.tm_year);
+}
+
 void Tests::CompareIfTwoDatesAreOnSameWeek()
 {
-    std::tm first_date
-                {
-                    0, 0, 0,
-                    5,
-                    9,
-                    2018,
-                    0, 0, -1, 0, ""
-                };
-
-    std::tm second_date
-                {
-                    0, 0, 0,
-                    6,
-                    9,
-                    2018,
-                    0, 0, -1, 0, ""
-                };
+    std::tm first_date = makeDate(2018, Months::Sep, 5);
+    std::tm second_date =  makeDate(2018, Months::Sep, 6);
 
     std::cout << "Testing CompareIfTwoDatesAreOnSameWeek: ";
     if(Date_Operations::compareIfTwoDatesAreOnSameWeek(first_date, second_date))
@@ -172,23 +162,8 @@ void Tests::CompareIfTwoDatesAreOnSameWeek()
 
 void Tests::CompareIfTwoDatesOnDifferentMonthsAreOnSameWeek()
 {
-    std::tm first_date
-                {
-                    0, 0, 0,
-                    1,
-                    9,
-                    2018,
-                    0, 0, -1, 0, ""
-                };
-
-    std::tm second_date
-                {
-                    0, 0, 0,
-                    31,
-                    8,
-                    2018,
-                    0, 0, -1, 0, ""
-                };
+    std::tm first_date = makeDate(2018, Months::Sep, 1);
+    std::tm second_date = makeDate(2018, Months::Aug, 31);
 
     std::cout << "Testing CompareIfTwoDatesOnDifferentMonthsAreOnSameWeek: ";
     if(Date_Operations::compareIfTwoDatesAreOnSameWeek(first_date, second_date))
@@ -205,23 +180,8 @@ void Tests::CompareIfTwoDatesOnDifferentMonthsAreOnSameWeek()
 
 void Tests::CompareIfTwoDatesOnDifferentMonthsLeapYearAreOnSameWeek()
 {
-    std::tm first_date
-                {
-                    0, 0, 0,
-                    29,
-                    2,
-                    2020,
-                    0, 0, -1, 0, ""
-                };
-
-    std::tm second_date
-                {
-                    0, 0, 0,
-                    1,
-                    3,
-                    2020,
-                    0, 0, -1, 0, ""
-                };
+    std::tm first_date = makeDate(2020, Months::Feb, 29);
+    std::tm second_date = makeDate(2020, Months::Mar, 1);
 
     std::cout << "Testing CompareIfTwoDatesOnDifferentMonthsLeapYearAreOnSameWeek: ";
     if(Date_Operations::compareIfTwoDatesAreOnSameWeek(first_date, second_date))
@@ -238,23 +198,8 @@ void Tests::CompareIfTwoDatesOnDifferentMonthsLeapYearAreOnSameWeek()
 
 void Tests::CompareIfTwoDatesOnDifferentYearsAreOnSameWeek()
 {
-    std::tm first_date
-                {
-                    0, 0, 0,
-                    31,
-                    12,
-                    2018,
-                    0, 0, -1, 0, ""
-                };
-
-    std::tm second_date
-                {
-                    0, 0, 0,
-                    1,
-                    1,
-                    2019,
-                    0, 0, -1, 0, ""
-                };
+    std::tm first_date = makeDate(2018, Months::Dec, 31);
+    std::tm second_date = makeDate(2019, Months::Jan, 1);
 
     std::cout << "Testing CompareIfTwoDatesOnDifferentYearsAreOnSameWeek: ";
     if(Date_Operations::compareIfTwoDatesAreOnSameWeek(first_date, second_date))
@@ -271,23 +216,8 @@ void Tests::CompareIfTwoDatesOnDifferentYearsAreOnSameWeek()
 
 void Tests::CompareIfTwoDatesAreNotOnTheSameWeek()
 {
-    std::tm first_date
-                {
-                    0, 0, 0,
-                    2,
-                    9,
-                    2018,
-                    0, 0, -1, 0, ""
-                };
-
-    std::tm second_date
-                {
-                    0, 0, 0,
-                    3,
-                    9,
-                    2018,
-                    0, 0, -1, 0, ""
-                };
+    std::tm first_date = makeDate(2018, Months::Sep, 2);
+    std::tm second_date = makeDate(2018, Months::Sep, 3);
 
     std::cout << "Testing CompareIfTwoDatesAreNotOnTheSameWeek: ";
     if(!Date_Operations::compareIfTwoDatesAreOnSameWeek(first_date, second_date))
@@ -323,87 +253,73 @@ void Tests::ReturnNextAndPreviousDay()
 
 void Tests::ReturnNextDayLeapDay()
 {
-    std::tm date_leap_day
-            {
-                0, 0, 0,
-                28,
-                1,
-                2020,
-                0, 0, -1, 0, ""
-            };
-    std::tm expected_next_day
-            {
-                0, 0, 0,
-                29,
-                1,
-                2020,
-                0, 0, -1, 0, ""
-            };
-    std::tm expected_next_next_day
-            {
-                0, 0, 0,
-                1,
-                2,
-                2018,
-                0, 0, -1, 0, ""
-            };
+    std::tm date_leap_day = makeDate(2020,Months::Feb,28);
+    std::tm expected_next_day = makeDate(2020,Months::Feb,29);
+    std::tm expected_next_next_day = makeDate(2020,Months::Mar,1);
 
-    // std::tm date_leap_day{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ""};
-    // date_leap_day.tm_year = 2020;
-    // date_leap_day.tm_mon = 1;
-    // date_leap_day.tm_mday = 28;
-    // date_leap_day.tm_isdst = -1;
-    std::cout << "date_leap_day "<< date_leap_day.tm_year << " " << date_leap_day.tm_mon << " " << date_leap_day.tm_mday << std::endl;
-    std::tm next_day_in_leap_year = Date_Operations::returnNextDay(date_leap_day);
-    std::cout << "next_day_in_leap_year "<< next_day_in_leap_year.tm_year << " " << next_day_in_leap_year.tm_mon << " " << next_day_in_leap_year.tm_mday << std::endl;
-    std::tm next_next_day_in_leap_year = Date_Operations::returnNextDay(next_day_in_leap_year);
-    std::cout << "next_next_day_in_leap_year "<< next_next_day_in_leap_year.tm_year << " " << next_next_day_in_leap_year.tm_mon << " " << next_next_day_in_leap_year.tm_mday << std::endl;
+    std::cout << "Testing ReturnNextDayLeapDay: ";
+    if(expected_next_day == Date_Operations::returnNextDay(date_leap_day) && expected_next_next_day == Date_Operations::returnNextDay(Date_Operations::returnNextDay(date_leap_day)))
+    {
+        std::cout << "Test Passed" << std::endl;
+    }
+    else
+    {
+        std::cout << "Test Failed" << std::endl;
+    }
 }
 
 void Tests::ReturnPreviousDayAfterLeapDay()
 {
-    std::tm day_after_leap_day{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ""};
+    std::tm day_after_leap_day = makeDate(2020,Months::Mar,1);
+    std::tm expected_previous_day = makeDate(2020,Months::Feb,29);
 
-    day_after_leap_day.tm_year = 2020;
-    day_after_leap_day.tm_mon = 2;
-    day_after_leap_day.tm_mday = 1;
-    day_after_leap_day.tm_isdst = -1;
-    std::cout << "day_after_leap_day "<< day_after_leap_day.tm_year << " " << day_after_leap_day.tm_mon << " " << day_after_leap_day.tm_mday << std::endl;
-    std::tm previous_day_after_leap_day = Date_Operations::returnPreviousDay(day_after_leap_day);
-    std::cout << "previous_day_after_leap_day "<< previous_day_after_leap_day.tm_year << " " << previous_day_after_leap_day.tm_mon << " " << previous_day_after_leap_day.tm_mday << std::endl;
+    std::cout << "Testing ReturnPreviousDayAfterLeapDay: ";
+    if(expected_previous_day == Date_Operations::returnPreviousDay(day_after_leap_day))
+    {
+        std::cout << "Test Passed" << std::endl;
+    }
+    else
+    {
+        std::cout << "Test Failed" << std::endl;
+    }
 }
 
 void Tests::ReturnPreviousDayNonLeapDay()
 {
-    std::tm day_after_non_leap_day{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ""};
+    std::tm day_after_non_leap_day = makeDate(2019,Months::Mar,1);
+    std::tm expected_previous_day = makeDate(2019,Months::Feb,28);
 
-    day_after_non_leap_day.tm_year = 2019;
-    day_after_non_leap_day.tm_mon = 2;
-    day_after_non_leap_day.tm_mday = 1;
-    day_after_non_leap_day.tm_isdst = -1;
-    std::cout << "day_after_non_leap_day "<< day_after_non_leap_day.tm_year << " " << day_after_non_leap_day.tm_mon << " " << day_after_non_leap_day.tm_mday << std::endl;
-    std::tm previous_day_after_non_leap_day = Date_Operations::returnPreviousDay(day_after_non_leap_day);
-    std::cout << "previous_day_after_non_leap_day "<< previous_day_after_non_leap_day.tm_year << " " << previous_day_after_non_leap_day.tm_mon << " " << previous_day_after_non_leap_day.tm_mday << std::endl;
+    std::cout << "Testing ReturnPreviousDayNonLeapDay: ";
+    if(expected_previous_day == Date_Operations::returnPreviousDay(day_after_non_leap_day))
+    {
+        std::cout << "Test Passed" << std::endl;
+    }
+    else
+    {
+        std::cout << "Test Failed" << std::endl;
+    }
 }
 
 void Tests::ReturnAllWeekdaysInTheSameWeek()
 {
-    std::cout <<"The Date today is(std):" << return_current_time_and_date() << std::endl;
-    std::string date = return_current_time_and_date();
-    std::vector<std::string> tokens = split(date, ',');
+    std::tm date = makeDate(2018,Months::Sep,5);
+    std::tm expected_monday = makeDate(2018,Months::Sep,3);
+    std::tm expected_tuesday = makeDate(2018,Months::Sep,4);
+    std::tm expected_wednesday = makeDate(2018,Months::Sep,5);
+    std::tm expected_thursday = makeDate(2018,Months::Sep,6);
+    std::tm expected_friday = makeDate(2018,Months::Sep,7);
 
-    std::tm first_date{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ""};
-    first_date.tm_year = std::stoi(tokens.at(0));
-    first_date.tm_mon = std::stoi(tokens.at(1));
-    first_date.tm_mday = std::stoi(tokens.at(2));
-    first_date.tm_isdst = -1;
-    first_date.tm_wday = std::stoi(std::regex_replace(tokens.at(3), std::regex("^ +\r\n|\r|\n+"), "$1"));
-    std::cout << "first_date "<< first_date.tm_year << " " << first_date.tm_mon << " " << first_date.tm_mday << " " << first_date.tm_wday << std::endl;
-
-    std::array<std::tm,5> weekdays = Date_Operations::returnAllWeekdaysDatesInTheSameWeek(first_date);
-    for (int x = 0; x<5; ++x)
+    std::cout << "Testing ReturnAllWeekdaysInTheSameWeek: ";
+    std::array<std::tm,5> actual_weekdays = Date_Operations::returnAllWeekdaysDatesInTheSameWeek(date);
+    if(       expected_monday == actual_weekdays[0] && expected_tuesday == actual_weekdays[1]
+        && expected_wednesday == actual_weekdays[2] && expected_thursday == actual_weekdays[3]
+        && expected_friday == actual_weekdays[4] )
     {
-        std::cout << "Element " << x << " " << weekdays[x].tm_year << " " <<  weekdays[x].tm_mon << " " <<  weekdays[x].tm_mday << std::endl;
+        std::cout << "Test Passed" << std::endl;
+    }
+    else
+    {
+        std::cout << "Test Failed" << std::endl;
     }
 }
 
