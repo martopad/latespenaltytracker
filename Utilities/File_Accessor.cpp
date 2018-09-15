@@ -38,7 +38,7 @@ std::vector<std::string> File_Accessor::getFirstLineMatched(std::string filePath
         std::cout << "Your keyword: " << tokenToMatch << " does not exist in " <<  std::filesystem::current_path().string() << " " << filePathRelativeToPWD << std::endl;
     }
     reader.close();
-    return std::vector<std::string> {"FAILURE"};
+    return std::vector<std::string> {};
 }
 
 std::vector<std::string> File_Accessor::returnAllLinesInAFile(std::string filePathRelativeToPWD)

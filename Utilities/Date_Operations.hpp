@@ -13,7 +13,7 @@ class Date_Operations
         static int determineTotalDaysOfMonth(std::tm date);
         static std::tm returnNextDay(std::tm date);
         static std::tm returnPreviousDay(std::tm date);
-        static bool isValidDaysInMonth(std::tm date);
+        //static bool isValidDaysInMonth(std::tm date);
         static bool isLeapYear(std::tm date);
         static bool isValidYear(std::tm date);
         static int returnPositionInWeek(std::tm date);

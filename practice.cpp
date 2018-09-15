@@ -23,7 +23,7 @@ void display_all_lates_for_all_in_sprint()
 {
   std::string all_people = "AC,AB,DR,DI,DP,EM,JL,JF,JT,JQ,JE,KT,MR,MY,PC,RM,RL,RT,SS";
   std::vector<std::string> all_people_splitted = Regex_Operations::splitGivenString(all_people,',');
-  Sprint sprint("2018,03,17");
+  Sprint sprint(1809);
   for(auto person: all_people_splitted)
   {
     Person latePerson(person);
@@ -34,6 +34,27 @@ void display_all_lates_for_all_in_sprint()
 
 int main()
 {
+  /*
+  TODO:
+    Log Lates
+    Payments
+      Iterating through sprint folders
+      Logging mechanism when payments are made
+      Reporting for payments
+      Deduction in total collected.
+    Duplicate entry detection
+
+  */
+
+ /*
+ BUG:
+    Days on the same week bug:
+      UNPAID,2018,07,30,20
+      UNPAID,2018,07,31,30
+      (User gets late the next day):
+        Expected: UNPAID,2018,08,01,40
+        Actual: UNPAID,2018,08,01,30
+ */
   //UNPAID,2018,08,17
   std::string date = "";
   std::string lates = "";
@@ -61,9 +82,10 @@ int main()
     Person latePerson(element);
     std::cout << latePerson.full_Name_Abrv << "-" << latePerson.last_Name << "," << latePerson.first_Name << std::endl;
     Penalty::giveLatePenalty(latePerson, sprint, date);
-    int all_My_Lates = Penalty::countPenaltyOnSprint(latePerson, sprint);
-    all_My_Lates += Penalty::countPaidPenaltyOnSprint(latePerson, sprint);
-    std::cout << "all My Lates: " << all_My_Lates << std::endl;
+    int all_My_Unpaid_Lates = Penalty::countUnpaidPenaltyOnSprint(latePerson, sprint);
+    int all_My_Paid_Lates = Penalty::countPaidPenaltyOnSprint(latePerson, sprint);
+    //all_My_Lates += Penalty::countPaidPenaltyOnSprint(latePerson, sprint);
+    std::cout << "Unpaid Lates: " << all_My_Unpaid_Lates << " Paid Lates: " << all_My_Paid_Lates << std::endl;
   }
   //display_all_lates_for_all_in_sprint();
 

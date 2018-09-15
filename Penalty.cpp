@@ -88,7 +88,7 @@ void Penalty::giveLatePenalty(Person late_Person, Sprint sprint, std::string dat
         }
     }
     std::cout << "penalty: " << penalty << std::endl;
-    std::string line_to_insert = std::string("UNPAID")+','+date+','+std::to_string(penalty);
+    std::string line_to_insert = std::string("PAID")+','+date+','+std::to_string(penalty);
     std::cout << "line_to_insert: " << line_to_insert << std::endl;
 
     File_Accessor::appendToAFile("Sprints/"+sprint.sprint_number+"/"+late_Person.first_Name+"-"+ late_Person.last_Name+".txt",line_to_insert);
