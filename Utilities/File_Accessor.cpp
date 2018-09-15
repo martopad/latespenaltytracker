@@ -9,10 +9,10 @@
 std::vector<std::string> File_Accessor::getFirstLineMatched(std::string filePathRelativeToPWD, std::string tokenToMatch)
 {
     std::ifstream reader(std::filesystem::current_path().string() +"/"+ filePathRelativeToPWD);
-    if(!reader)
+    if(!reader | is_empty(reader))
     {
-        std::cout << "Unable to access: " << std::filesystem::current_path().string() << " " << filePathRelativeToPWD << std::endl ;
-        return std::vector<std::string> {"FAILURE"};
+        //std::cout << "Unable to access: " << std::filesystem::current_path().string() << " " << filePathRelativeToPWD << std::endl ;
+        return std::vector<std::string> {};
     }
 
     std::string line;
@@ -44,10 +44,10 @@ std::vector<std::string> File_Accessor::getFirstLineMatched(std::string filePath
 std::vector<std::string> File_Accessor::returnAllLinesInAFile(std::string filePathRelativeToPWD)
 {
     std::ifstream reader(std::filesystem::current_path().string() +"/"+ filePathRelativeToPWD);
-    if(!reader)
+    if(!reader | is_empty(reader))
     {
-        std::cout << "Unable to access: " << std::filesystem::current_path().string() << " " << filePathRelativeToPWD << std::endl ;
-        return std::vector<std::string> {"FAILURE"};
+        //std::cout << "Unable to access: " << std::filesystem::current_path().string() << " " << filePathRelativeToPWD << std::endl ;
+        return std::vector<std::string> {};
     }
 
     std::string line;
@@ -70,9 +70,9 @@ std::vector<std::string> File_Accessor::returnAllLinesInAFile(std::string filePa
 int File_Accessor::countNumberOfLines(std::string filePathRelativeToPWD)
 {
     std::ifstream reader(std::filesystem::current_path().string() +"/"+ filePathRelativeToPWD);
-    if(!reader)
+    if(!reader | is_empty(reader))
     {
-        std::cout <<"Unable to access: " << std::filesystem::current_path().string() << " " << filePathRelativeToPWD << std::endl ;
+        //std::cout <<"Unable to access: " << std::filesystem::current_path().string() << " " << filePathRelativeToPWD << std::endl ;
         return 0;
     }
 
@@ -89,9 +89,9 @@ int File_Accessor::countNumberOfLines(std::string filePathRelativeToPWD)
 int File_Accessor::countNumberOfLinesThatStartWith(std::string filePathRelativeToPWD, std::string lineStartsWith)
 {
     std::ifstream reader(std::filesystem::current_path().string() +"/"+ filePathRelativeToPWD);
-    if(!reader)
+    if(!reader | is_empty(reader))
     {
-        std::cout <<"Unable to access: " << std::filesystem::current_path().string() << " " << filePathRelativeToPWD << std::endl ;
+        //std::cout <<"Unable to access: " << std::filesystem::current_path().string() << " " << filePathRelativeToPWD << std::endl ;
         return 0;
     }
 
@@ -117,10 +117,43 @@ int File_Accessor::countNumberOfLinesThatStartWith(std::string filePathRelativeT
     return line_count;
 }
 
+std::vector<std::string> File_Accessor::returnAllLinesThatStartWith(std::string filePathRelativeToPWD, std::string lineStartsWith)
+{
+    std::ifstream reader(std::filesystem::current_path().string() +"/"+ filePathRelativeToPWD);
+    if(!reader | is_empty(reader))
+    {
+        //std::cout <<"Unable to access: " << std::filesystem::current_path().string() << " " << filePathRelativeToPWD << std::endl ;
+        return std::vector<std::string> {};
+    }
+
+    int line_count = 0;
+    std::vector<std::string> linesMatched;
+    std::string line;
+    std::vector<std::string> tokens;
+    std::string token;
+
+    while(getline(reader, line))
+    {
+        std::istringstream tokenStream(line);
+        while (std::getline(tokenStream, token, ','))
+        {
+            tokens.push_back(token);
+        }
+        if(tokens.front() == lineStartsWith)
+        {
+            linesMatched.push_back(line);
+        }
+        tokens.clear();
+    }
+    reader.close();
+    return linesMatched;
+}
+
 void File_Accessor::appendToAFile(std::string filePathRelativeToPWD, std::string lineToAppend)
 {
     std::ofstream writer;
     //std::ofstream writer(std::filesystem::current_path().string() +"/"+ filePathRelativeToPWD);
+    std::cout << "Writing to File: " <<  std::filesystem::current_path().string() <<"/"<< filePathRelativeToPWD << std::endl;
     writer.open( std::filesystem::current_path().string() +"/"+ filePathRelativeToPWD, std::ios::out | std::ios::app );
     if(!writer)
     {
@@ -128,6 +161,13 @@ void File_Accessor::appendToAFile(std::string filePathRelativeToPWD, std::string
     }
 
 
-    writer << "\n" <<lineToAppend;
+    writer << lineToAppend << "\n" ;
     writer.close();
 }
+
+bool File_Accessor::is_empty(std::ifstream& pFile)
+{
+    return pFile.peek() == std::ifstream::traits_type::eof();
+}
+
+

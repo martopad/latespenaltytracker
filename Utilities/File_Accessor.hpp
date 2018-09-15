@@ -9,4 +9,6 @@ class File_Accessor
         static int countNumberOfLinesThatStartWith(std::string filePathRelativeToPWD, std::string lineStartsWith);
         static std::vector<std::string> returnAllLinesInAFile(std::string filePathRelativeToPWD);
         static void appendToAFile(std::string filePathRelativeToPWD, std::string lineToAppend);
+        static std::vector<std::string> returnAllLinesThatStartWith(std::string filePathRelativeToPWD, std::string lineStartsWith);
+        static bool is_empty(std::ifstream& pFile);
 };

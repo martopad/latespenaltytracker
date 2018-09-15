@@ -61,14 +61,14 @@ Sprint::Sprint(std::string date_in_sprint)
                         std::stoi(splitted_line.at(4)),
                         0, 0, -1, 0, ""
                     };
-        // std::cout << "Check_Date: "<< date.tm_year  << " " << date.tm_mon << " " << date.tm_mday << std::endl;
-        // std::cout << "Start_Date: "<< start_sprint_date.tm_year << " " << start_sprint_date.tm_mon << " " <<  start_sprint_date.tm_mday << std::endl;
-        // std::cout << "End_Date: "<< end_sprint_date.tm_year << " " << end_sprint_date.tm_mon << " " << end_sprint_date.tm_mday << std::endl;
+        //std::cout << "Sprint::Sprint - Check_Date: "<< date.tm_year  << " " << date.tm_mon << " " << date.tm_mday << std::endl;
+        //std::cout << "Sprint::Sprint - Start_Date: "<< start_sprint_date.tm_year << " " << start_sprint_date.tm_mon << " " <<  start_sprint_date.tm_mday << std::endl;
+        //std::cout << "Sprint::Sprint - End_Date: "<< end_sprint_date.tm_year << " " << end_sprint_date.tm_mon << " " << end_sprint_date.tm_mday << std::endl;
 
 
         if(Date_Operations::isDateInRange(date, start_sprint_date, end_sprint_date))
         {
-            //std::cout << "Date Found!" << std::endl;
+            //std::cout << "Sprint::Sprint - Date Found!" << std::endl;
             sprint_number = splitted_line.at(0);
             start_date = splitted_line.at(1) + "," + splitted_line.at(2) + "," + splitted_line.at(3);
             end_date = splitted_line.at(4) + "," + splitted_line.at(5) + "," + std::regex_replace(splitted_line.at(6), std::regex("^ +\r\n|\r|\n+"), "$1");
