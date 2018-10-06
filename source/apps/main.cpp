@@ -13,11 +13,11 @@
 //#include "Sprint.hpp"
 //#include <boost/filesystem.hpp>
 #include <ctime>
-#include "../libs/utilities/Date_Operations.hpp"
+#include "libs/utilities/Date_Operations.hpp"
 // #include "Tests.hpp"
-#include "../libs/utilities/File_Accessor.hpp"
-#include "../libs/utilities/Regex_Operations.hpp"
-#include "../libs/Penalty.hpp"
+#include "libs/utilities/File_Accessor.hpp"
+#include "libs/utilities/Regex_Operations.hpp"
+#include "libs/Penalty.hpp"
 
 
 void display_all_lates_for_all_in_sprint()

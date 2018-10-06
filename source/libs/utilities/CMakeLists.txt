@@ -17,3 +17,8 @@ add_library(
 )
 
 target_link_libraries(File_Accessor stdc++fs)
+set(RELATIVE_INCLUDE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../..")
+message(STATUS "The relative path used for utilities: " "${RELATIVE_INCLUDE_PATH}")
+target_include_directories(File_Accessor PUBLIC "${RELATIVE_INCLUDE_PATH}")
+target_include_directories(Date_Operations PUBLIC "${RELATIVE_INCLUDE_PATH}")
+target_include_directories(Regex_Operations PUBLIC "${RELATIVE_INCLUDE_PATH}")
