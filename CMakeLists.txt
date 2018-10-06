@@ -73,7 +73,7 @@ set(CMAKE_CXX_COMPILER "/usr/bin/g++-8")
 # endforeach()
 # list(REMOVE_DUPLICATES Foo_INCLUDE_DIRS)
 
-add_executable (a.out practice.cpp)
+add_executable (a.out main.cpp)
 
 
 #message(a.out, ${Foo_SOURCES} \n \n \n \n)
