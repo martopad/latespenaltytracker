@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 project (latespenaltytracker VERSION 0.0.0)
-
+add_subdirectory(utilities)
 add_compile_options(-Wall -Wextra -Wpedantic)
 
 add_library(
@@ -22,9 +22,33 @@ add_library(
 )
 
 add_library(
+    Tests SHARED
+    Tests.hpp
+    Tests.cpp
+)
+
+add_library(
+    Time SHARED
+    Time.hpp
+    Time.cpp
+)
+
+add_library(
     File_Accessor SHARED
-    Utilities/File_Accessor.hpp
-    Utilities/File_Accessor.cpp
+    utilities/File_Accessor.hpp
+    utilities/File_Accessor.cpp
+)
+
+add_library(
+    Date_Operations SHARED
+    utilities/Date_Operations.hpp
+    utilities/Date_Operations.cpp
+)
+
+add_library(
+    Regex_Operations SHARED
+    utilities/Regex_Operations.hpp
+    utilities/Regex_Operations.cpp
 )
 
 target_link_libraries(File_Accessor stdc++fs)
@@ -49,13 +73,7 @@ set(CMAKE_CXX_COMPILER "/usr/bin/g++-8")
 # endforeach()
 # list(REMOVE_DUPLICATES Foo_INCLUDE_DIRS)
 
-add_executable (a.out
-/mnt/c/Users/myung/Documents/GitHub/latespenaltytracker/Tests.cpp
-/mnt/c/Users/myung/Documents/GitHub/latespenaltytracker/Time.cpp
-/mnt/c/Users/myung/Documents/GitHub/latespenaltytracker/Utilities/Date_Operations.cpp
-#/mnt/c/Users/myung/Documents/GitHub/latespenaltytracker/Utilities/File_Accessor.cpp
-/mnt/c/Users/myung/Documents/GitHub/latespenaltytracker/Utilities/Regex_Operations.cpp
-/mnt/c/Users/myung/Documents/GitHub/latespenaltytracker/practice.cpp )
+add_executable (a.out practice.cpp)
 
 
 #message(a.out, ${Foo_SOURCES} \n \n \n \n)
@@ -63,4 +81,4 @@ add_executable (a.out
 
 #add_executable (a.out ${WEW})
 #target_include_directories(a.out PRIVATE ${Foo_INCLUDE_DIRS})
-target_link_libraries(a.out stdc++fs Sprint Penalty Person File_Accessor) #stdc++fs
+target_link_libraries(a.out stdc++fs Tests Sprint Penalty Person File_Accessor Date_Operations Regex_Operations) #stdc++fs

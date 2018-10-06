@@ -1,4 +1,4 @@
-// g++-8 -std=c++17 -isystem ../BOOSTEXPERIMENTS/boost_1_67_0/ *.cpp Utilities/*.cpp -pthread -lboost_unit_test_framework -o a.out -lboost_thread -lpthread -lboost_chrono -lboost_system -lboost_date_time -lstdc++fs -L ../BOOSTEXPERIMENTS/boost_1_67_0/stage/lib/
+// g++-8 -std=c++17 -isystem ../BOOSTEXPERIMENTS/boost_1_67_0/ *.cpp utilities/*.cpp -pthread -lboost_unit_test_framework -o a.out -lboost_thread -lpthread -lboost_chrono -lboost_system -lboost_date_time -lstdc++fs -L ../BOOSTEXPERIMENTS/boost_1_67_0/stage/lib/
 #include <iostream>
 #include <string>
 #include <regex>
@@ -13,10 +13,10 @@
 //#include "Sprint.hpp"
 //#include <boost/filesystem.hpp>
 #include <ctime>
-#include "Utilities/Date_Operations.hpp"
+#include "utilities/Date_Operations.hpp"
 // #include "Tests.hpp"
-#include "Utilities/File_Accessor.hpp"
-#include "Utilities/Regex_Operations.hpp"
+#include "utilities/File_Accessor.hpp"
+#include "utilities/Regex_Operations.hpp"
 #include "Penalty.hpp"
 
 

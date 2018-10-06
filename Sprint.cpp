@@ -5,9 +5,9 @@
 #include <time.h>
 
 #include "Sprint.hpp"
-#include "Utilities/File_Accessor.hpp"
-#include "Utilities/Regex_Operations.hpp"
-#include "Utilities/Date_Operations.hpp"
+#include "utilities/File_Accessor.hpp"
+#include "utilities/Regex_Operations.hpp"
+#include "utilities/Date_Operations.hpp"
 
 
 
